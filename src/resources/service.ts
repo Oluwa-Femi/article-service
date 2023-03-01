@@ -30,7 +30,7 @@ export async function findAndUpdateArticle(
   return ArticleModel.findOneAndUpdate(query, update, options);
 }
 
-export const getAllBlogs = async (Model: any, page: any, limit: any) => {
+export const findAllArticles = async (Model: any, page: any, limit: any) => {
   const docs = await Model.find()
     .limit(limit * 1)
     .skip((Number(page) - 1) * limit)
