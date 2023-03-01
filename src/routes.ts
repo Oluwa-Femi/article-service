@@ -2,11 +2,16 @@ import { Express, Request, Response } from "express";
 import validateResource from "./resources/middleware";
 import {
   createArticleHandler,
-  updateArticleHandler
+  updateArticleHandler,
+  getArticleHandler,
+  getAllArticlesHandler,
+  deleteArticleHandler
 } from "./resources/controller";
 import {
   createArticleSchema,
-  updateArticleSchema
+  updateArticleSchema,
+  deleteArticleSchema,
+  getArticleSchema
 } from "./resources/schema";;
 
 function routes(app: Express) {
@@ -22,6 +27,20 @@ function routes(app: Express) {
         "/api/articles/:articleId",
         validateResource(updateArticleSchema),
         updateArticleHandler
+      );
+
+      app.get(
+        "/api/articles/:articleId",
+        validateResource(getArticleSchema),
+        getArticleHandler
+      );
+    
+      app.get("/api/articles", getAllArticlesHandler);
+    
+      app.delete(
+        "/api/articles/:articleId",
+        validateResource(deleteArticleSchema),
+        deleteArticleHandler
       );
 }
 
