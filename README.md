@@ -14,14 +14,19 @@ Implement an article api service with complete CRUD functionalities using Node a
 In the terminal, you can:
 * cd into your preferred folder
 * run git clone `https://github.com/Oluwa-Femi/article-service`
-* create a .env file in the root directory replicating the keys in the .env.sample file. Attach values to the keys. 
+* create a .env file in the root directory replicating the keys in the sample.env file. Attach values to the keys. 
 * run npm install - to set up Node modules and install packages
 * run npm run dev - to spin the application
 * Use an API tester e.g Postman to run the routes below
 
 ### Routes
-
+- 
+- `POST http://localhost:${Port}/api/articles` - Create a new resource
+- `PUT http://localhost:${Port}/api/articles/:id` - Update a resource
+- `GET http://localhost:${Port}/api/articles/:id` - Get one article
+- `GET http://localhost:${Port}/api/articles/?page=number&limit=number` - Get all articles. page=1 means page 1, number=5 means the number of records returned on the page. Alternatively, you can also define page,limit as Query Params keys, supplying the numbers as values.  
+- `DELETE http://localhost:${Port}/api/articles/:id` - Delete resource
 
 ### To run tests
-
+- Run `npm run test` in the terminal
 
