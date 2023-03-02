@@ -18,7 +18,7 @@ export async function createArticleHandler(
 
     const article = await createArticle({
       ...body,
-      slug: "",
+      slug: ""
     });
 
     return res.json({ status: 200, message: "success", data: article });
