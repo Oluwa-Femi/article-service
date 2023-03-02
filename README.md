@@ -20,7 +20,7 @@ In the terminal, you can:
 * Use an API tester e.g Postman to run the routes below
 
 ### Routes
-- 
+- `GET http://localhost:${Port}/healthcheck` - Healthcheck
 - `POST http://localhost:${Port}/api/articles` - Create a new resource
   `PAYLOAD`  - {
                 "title": "Lorem Ipsum Dolor Sit Amet",
