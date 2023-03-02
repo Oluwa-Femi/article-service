@@ -18,12 +18,17 @@ export async function createArticleHandler(
 
     const article = await createArticle({
       ...body,
-      slug: ""
+      slug: "",
     });
 
     return res.json({ status: 200, message: "success", data: article });
   } catch (err) {
-    res.status(500).json({ Error });
+    res
+      .status(500)
+      .json({
+        status: "error",
+        message: "Cannot create a new article at this time, please ensure resource title doesn't exist already.",
+      });
   }
 }
 
@@ -38,7 +43,7 @@ export async function updateArticleHandler(
     const article = await findArticle({ articleId });
 
     if (!article) {
-      return res.sendStatus(404);
+      res.status(404).json({ status: "error", message: "Resource not found" });
     }
 
     const updatedArticle = await findAndUpdateArticle({ articleId }, update, {
@@ -47,7 +52,12 @@ export async function updateArticleHandler(
 
     return res.json({ status: 200, message: "success", data: updatedArticle });
   } catch (err) {
-    res.status(500).json({ Error });
+    res
+      .status(500)
+      .json({
+        status: "error",
+        message: "Cannot update this article at this time",
+      });
   }
 }
 
@@ -60,12 +70,19 @@ export async function getArticleHandler(
     const article = await findArticle({ articleId });
 
     if (!article) {
-      return res.sendStatus(404);
+      return res
+        .status(404)
+        .json({ status: "error", message: "Resource not found" });
     }
 
     return res.json({ status: 200, message: "success", data: article });
   } catch (err) {
-    res.status(500).json({ Error });
+    res
+      .status(500)
+      .json({
+        status: "error",
+        message: "Cannot get this article at this time",
+      });
   }
 }
 
@@ -86,7 +103,12 @@ export async function getAllArticlesHandler(
       data: articles,
     });
   } catch (err) {
-    res.status(500).json({ Error });
+    res
+      .status(500)
+      .json({
+        status: "error",
+        message: "Cannot get these article at this time",
+      });
   }
 }
 
@@ -100,7 +122,9 @@ export async function deleteArticleHandler(
     const article = await findArticle({ articleId });
 
     if (!article) {
-      return res.sendStatus(404);
+      return res
+        .status(404)
+        .json({ status: "error", message: "Resource not found" });
     }
 
     await deleteArticle({ articleId });
@@ -110,6 +134,11 @@ export async function deleteArticleHandler(
       message: "Article successfully deleted",
     });
   } catch (err) {
-    res.status(500).json({ Error });
+    res
+      .status(500)
+      .json({
+        status: "error",
+        message: "Cannot delete this article at this time",
+      });
   }
 }
