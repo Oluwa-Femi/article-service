@@ -35,18 +35,29 @@ describe("article", () => {
   });
 
   describe("Create product route", () => {
-    it("should return a 200 and create the product", async () => {
-      const { statusCode, body } = await supertest(app)
-        .post("/api/articles")
-        .send(articlePayload);
-        
-      const resp = {
-        title: "Hurraalalala",
+    it("should return a 200 status ", async () => {
+      const newArticlePayload = {
+        title: "Hurrpoi65alpoa",
         body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
         imageUrl: "https://i.imgur.com/QlRphfQ.jpg",
-      }
+      };
+      const res = await supertest(app)
+        .post("/api/articles")
+        .send(newArticlePayload);
 
-      expect(articlePayload).toEqual(resp);
+      expect(res.body.status).toEqual(200);
+    });
+
+    const incompletePayload = {
+      title: "Hurrpoi65ala",
+      imageUrl: "https://i.imgur.com/QlRphfQ.jpg",
+    };
+    it("should throw error when a property is missing", async () => {
+      const res = await supertest(app)
+        .post("/api/articles")
+        .send(incompletePayload);
+
+      expect(res.body[0].code).toBe("invalid_type");
     });
   });
 });
